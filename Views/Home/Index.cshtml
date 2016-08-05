@@ -1,0 +1,449 @@
+﻿
+@model InvontoDevTest.ViewModels.ContactsViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE HTML>
+
+<html ng-app="homeapp" lang="en-us">
+
+<head>
+    <title>Home Page</title>
+
+    <!-- ANGULAR.JS NEXT TWO ....SECOND IS FOR INJECTING HTML-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
+
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <!-- THE NEXT THREE ARE BOOTSTRAP -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+    <!-- FONT AWESOME ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+    <link href="~/Content/style.css" type="text/css" rel="stylesheet" />
+
+
+</head>
+
+<body ng-controller="ContactsController as contact">
+
+
+
+
+    <div class="header">
+        <h1 class="text-center">Open Source Contact List</h1>
+    </div>
+
+
+
+
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2 main">
+
+            <div class="contact_button">
+                <button ng-click="contact.add_redirect()" type="button" class="btn btn-success add_contact">Add Contact</button>
+            </div>
+
+
+            @{ var count = 1; }
+
+            @foreach (var contact in Model.Contacts)
+            {
+                <div ng-click="contact.details(@count)" class="contact contact_track@(count)">
+                    <h2 class="text-center">@contact.FirstName @contact.LastName</h2>
+                </div>
+
+                <div class="contact_info contact_count@(count) hidden">
+
+
+
+
+                    <p id="profile_picture@(count)" profile">@contact.Profile</p>
+
+
+
+                    <div class="contact_details">
+
+
+                        @if (contact.Phone != null)
+                        {
+                            <div class="contact_item">
+                                <small>Phone</small>
+                                <p>@contact.Phone</p>
+                            </div>
+                        }
+
+
+                        @if (contact.Email != null)
+                        {
+                            <div class="contact_item">
+                                <small>Email</small>
+                                <p>@contact.Email</p>
+                            </div>
+                        }
+
+
+                        @if (contact.Birthdate != null)
+                        {
+                            <div class="contact_item">
+                                <small>Birthday</small>
+                                <p>@contact.Birthdate</p>
+                            </div>
+                        }
+                        
+
+
+                        @if ((bool)contact.Family || (bool)contact.Friend || (bool)contact.Colleague || (bool)contact.Associate)
+                        {
+                            <div class="contact_item relationships">
+
+                                @if ((bool)contact.Family)
+                                {
+                                    <p>Family</p>
+                                }
+
+                                @if ((bool)contact.Friend)
+                                {
+                                    <p>Friend</p>
+                                }
+
+                                @if ((bool)contact.Colleague)
+                                {
+                                    <p>Colleague</p>
+                                }
+
+                                @if ((bool)contact.Associate)
+                                {
+                                    <p>Associate</p>
+                                }
+
+                            </div>
+                        }
+
+
+
+                        <div class="contact_item_comments">
+                            <small>Comments</small>
+                            <p>@contact.Comments</p>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <button ng-click="contact.edit_redirect(@contact.Id)" type="button" class="btn btn-warning">Edit</button>
+
+
+
+
+                    <!-- Small modal -->
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm@(count)">Delete</button>
+
+                    <div class="modal fade bs-example-modal-sm@(count)" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <h4>Are you sure you want to delete this contact?</h4>
+                                <button ng-click="contact.delete(@contact.Id, @count)" type="button" class="btn btn-danger cancel">Yes</button>
+                                <button ng-click="contact.trigger(@count)" type="button" class="btn btn-default cancel">No</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div> <!-- end contact info -->
+
+                count++;
+            }
+
+
+        </div> <!-- end col md 8 main-->
+
+
+
+
+    </div> <!-- end row -->
+
+
+
+
+
+
+    <div id="contact_me" class="footer row">
+
+
+        <div class="footer_title">
+            <!--                    <p class="text-center"><span class="glyphicon glyphicon-envelope"></span></p>-->
+            <h3 class="text-center">Connect with me</h3>
+        </div>
+
+
+        <div class="footer_left col-md-4 col-md-offset-1">
+
+
+            <div class="left_email col-md-2">
+                <span class="glyphicon glyphicon-send"></span>
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="mailto:aaron.thompkins12@gmail.com">aaron.thompkins12@gmail.com</a></h4>
+            </div>
+
+
+
+            <div class="left_linkedin col-md-2">
+                <i class="fa fa-linkedin"></i>
+
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="https://www.linkedin.com/in/aaron-thompkins-44137a37">Linkedin</a></h4>
+            </div>
+
+
+
+            <div class="left_github col-md-2">
+                <i class="fa fa-github"></i>
+
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="https://github.com/aball6412/">Github</a></h4>
+            </div>
+
+
+
+
+        </div> <!-- end footer left -->
+
+
+
+        <div class="footer_right col-md-4 col-md-offset-2">
+
+
+            <div class="right_map col-md-2">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div class="right_address col-md-9">
+                <h4>Aaron Thompkins</h4>
+                <h4>Charlotte, NC 28202</h4>
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div> <!-- end footer -->
+
+
+    <div class="bottom_footer">
+        <p class="text-center">&copy; Aaron Thompkins 2016</p>
+        <p class="text-center">Thanks for visiting!</p>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script>
+        var homeapp = angular.module("homeapp", []);
+
+        homeapp.controller("ContactsController", function ($scope, $http, $window) {
+            var contact = this;
+
+
+
+            //Use array to keep track of which images we've already loaded
+            var loaded = [];
+
+
+            //Show/hide contact information function
+            contact.changeClass = function (number) {
+
+                var element = ".contact_count" + number;
+                var change = angular.element(document.querySelector(element));
+
+                if (change.hasClass("hidden")) {
+
+                    change.removeClass("hidden");
+
+                }
+                else {
+                    change.addClass("hidden");
+                }
+
+            } //End changeClass method
+
+
+            //Display Profile Picture
+            contact.display_profile = function (number) {
+
+                //See if we've already decoded contact image or not
+                var test = loaded.includes(number);
+
+                if (!test) {
+
+                    //Get the target element and grab the base64 image string that was sent from server
+                    var element = "profile_picture" + number;
+                    var profile_picture = document.getElementById(element).innerHTML;
+
+
+                    //Create new image object and set base64 string to it's src
+                    var image = new Image(150, 150);
+                    image.src = profile_picture;
+
+                    //Get rid of base64 string in document and
+                    //Put the newly decoded image into the document
+                    //Mark element as having loaded image with class name of "done"
+                    document.getElementById(element).innerHTML = "";
+                    document.getElementById(element).appendChild(image);
+
+                    loaded.push(number);
+
+                } //End if
+
+            } //End display profile function
+
+
+
+
+
+            //Delete contact function
+            contact.delete = function (id, number) {
+
+                //Turn off the Modal light box
+                $(".bs-example-modal-sm" + number).modal("toggle");
+
+
+                var element_title = ".contact_track" + number;
+                var element_content = ".contact_count" + number;
+                var delete_title = angular.element(document.querySelector(element_title));
+                var delete_content = angular.element(document.querySelector(element_content));
+
+                var url = "http://localhost:52699/Home/deleteContact?id=" + id;
+
+                $http.get(url).then(function (response) {
+
+                    var result = response.data;
+
+                    if (result == "Success") {
+
+                        delete_title.remove();
+                        delete_content.remove();
+                    }
+                    else {
+                        console.log("Failed to Delete Item");
+                    }
+
+                    console.log(response.data);
+                });
+
+            } //End delete method
+
+
+            //Show contact details function wrapper
+            contact.details = function (number) {
+
+                //Run function to show contact details
+                //Run function to decode profile picture
+                contact.changeClass(number);
+                contact.display_profile(number);
+
+            };
+
+
+
+            //Toggle Modal function
+            contact.trigger = function (number) {
+                $(".bs-example-modal-sm" + number).modal("toggle");
+            }
+
+
+            contact.add_redirect = function () {
+                $window.location.href = "/home/add";
+            }
+
+
+            contact.edit_redirect = function (id) {
+                $window.location.href = "/home/edit?id=" + id;
+            }
+
+        }); //End Controller
+
+
+
+
+    </script>
+
+
+</body>
+
+
+
+
+
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

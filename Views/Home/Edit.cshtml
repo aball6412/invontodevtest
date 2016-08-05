@@ -1,0 +1,573 @@
+﻿@model InvontoDevTest.Models.Contact
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML>
+<html ng-app="editapp" lang="en-us">
+
+<head>
+
+    <title>Edit Contact</title>
+
+    <!-- ANGULAR.JS NEXT THREE-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.1/ui-bootstrap-tpls.js"></script>
+
+
+    <!-- JQUERY -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <!-- THE NEXT THREE ARE BOOTSTRAP -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- FONT AWESOME ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <link href="~/Content/style.css" type="text/css" rel="stylesheet" />
+
+
+</head>
+
+
+<body ng-controller="editController as contact">
+
+
+
+    <div class="header">
+        <h1 class="text-center">Open Source Contact List</h1>
+    </div> <!-- end header -->
+
+
+
+
+    <div class="row">
+
+        <div class="col-md-8 col-md-offset-2 main">
+
+
+            <h1 class="text-center">Edit Contact</h1>
+
+
+
+            <p id="profile_picture" ng-model="profile"></p>
+
+
+            <div class="picture_form">
+                <form action="#" method="post" enctype="multipart/form-data">
+                    <input id="new_profile_picture" ng-model="profile" type="file" name="mydoc" accept="image/*">
+                </form>
+
+                <button ng-click="upload()" type="button" class="btn btn-primary img_upload">Upload Picture</button>
+
+            </div>
+            
+
+
+            <p style="color: #d9534f" class="validation"></p>
+
+
+            <div class="input_details col-md-6">
+                <input ng-model="firstName" type="text" class="form-control firstname" placeholder="First Name">
+            </div>
+            
+
+
+            <div class="input_details col-md-6">
+                <input ng-model="lastName" type="text" class="form-control lastname" placeholder="Last Name">
+            </div>
+            
+
+
+            <div class="input_details col-md-6">
+                <input ng-model="email" type="text" class="form-control email" placeholder="Email">
+            </div>
+            
+
+
+            <div class="input_details col-md-6">
+                <input ng-model="phone" type="text" class="form-control phonenumber" placeholder="Phone Number">
+            </div>
+            
+
+
+            
+            <div class="input_details col-md-6">
+
+                <p class="input-group">
+                    <input type="text" class="form-control" placeholder="{{format}}" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+
+            </div>
+                
+
+
+                
+
+
+
+
+
+            <div class="input_details col-md-6">
+
+
+                <div class="checkbox">
+                    <label>
+
+                        <input ng-model="relationships.family" type="checkbox" value="">
+                        Family
+                    </label>
+                    <label>
+                        <input ng-model="relationships.friend" type="checkbox" value="">
+                        Friend
+                    </label>
+                    <label>
+                        <input ng-model="relationships.colleague" type="checkbox" value="">
+                        Colleague
+                    </label>
+                    <label>
+                        <input ng-model="relationships.associate" type="checkbox" value="">
+                        Associate
+                    </label>
+                </div>
+
+
+            </div>
+            
+
+
+   
+
+
+            <div class="input_details col-md-12 comments">
+                <textarea ng-model="comments" class="form-control" rows="3" placeholder="Add Comments"></textarea>
+            </div>
+
+            
+
+            <div class="action_buttons col-md-12">
+
+                <button ng-click="contact.save()" type="button" class="btn btn-success save">Save</button>
+
+                <!-- Small modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm">Cancel</button>
+
+                <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <h4>Are you sure you want to cancel?</h4>
+                            <button ng-click="contact.cancel()" type="button" class="btn btn-danger cancel">Yes</button>
+                            <button ng-click="contact.trigger()" type="button" class="btn btn-default cancel">No</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end action buttons -->
+
+           
+
+        </div> <!-- end main -->
+
+    </div> <!-- end row -->
+
+
+
+
+    <div id="contact_me" class="footer row">
+
+
+        <div class="footer_title">
+            <!--                    <p class="text-center"><span class="glyphicon glyphicon-envelope"></span></p>-->
+            <h3 class="text-center">Connect with me</h3>
+        </div>
+
+
+        <div class="footer_left col-md-4 col-md-offset-1">
+
+
+            <div class="left_email col-md-2">
+                <span class="glyphicon glyphicon-send"></span>
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="mailto:aaron.thompkins12@gmail.com">aaron.thompkins12@gmail.com</a></h4>
+            </div>
+
+
+
+            <div class="left_linkedin col-md-2">
+                <i class="fa fa-linkedin"></i>
+
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="https://www.linkedin.com/in/aaron-thompkins-44137a37">Linkedin</a></h4>
+            </div>
+
+
+
+            <div class="left_github col-md-2">
+                <i class="fa fa-github"></i>
+
+            </div>
+
+            <div class="info col-md-9">
+                <h4><a href="https://github.com/aball6412/">Github</a></h4>
+            </div>
+
+
+
+
+        </div> <!-- end footer left -->
+
+
+
+        <div class="footer_right col-md-4 col-md-offset-2">
+
+
+            <div class="right_map col-md-2">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div class="right_address col-md-9">
+                <h4>Aaron Thompkins</h4>
+                <h4>Charlotte, NC 28202</h4>
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div> <!-- end footer -->
+
+
+    <div class="bottom_footer">
+        <p class="text-center">&copy; Aaron Thompkins 2016</p>
+        <p class="text-center">Thanks for visiting!</p>
+
+    </div>
+
+
+
+
+
+
+    <script>
+
+        var editapp = angular.module("editapp", ["ui.bootstrap"]);
+
+            editapp.controller("editController", function ($scope, $http, $window) {
+
+                var contact = this;
+                var profile_picture = "@Model.Profile";
+                $scope.profile = "@Model.Profile";
+
+
+                //Initially set fields with current contact information
+                $scope.firstName = "@Model.FirstName";
+                $scope.lastName = "@Model.LastName";
+                $scope.email = "@Model.Email";
+                $scope.phone = "@Model.Phone";
+
+               //Datepicker Variables
+                $scope.dt = new Date("@Model.Birthdate");
+
+                $scope.popup2 = {
+                    opened: false
+                };
+
+                $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', "MM/dd/yyyy"];
+                $scope.format = $scope.formats[4];
+                $scope.altInputFormats = ['M!/d!/yyyy'];
+                
+
+
+                var family = "@Model.Family";
+                var friend = "@Model.Friend";
+                var colleague = "@Model.Colleague";
+                var associate = "@Model.Associate";
+
+                //Since ASP.NET has booleans with a capital we can't just drop them in code
+                //We need to do a compare statement to turn them into true javascript booleans
+                if (family === "True") {
+                    family = true;
+                }
+                else {
+                    family = false;
+                }
+
+                if (friend === "True") {
+                    friend = true;
+                }
+                else {
+                    friend = false;
+                }
+
+                if (colleague === "True") {
+                    colleague = true;
+                }
+                else {
+                    colleague = false;
+                }
+
+                if (associate === "True") {
+                    associate = true;
+                }
+                else {
+                    associate = false;
+                }
+
+
+                $scope.relationships = {
+                    family: family,
+                    friend: friend,
+                    colleague: colleague,
+                    associate: associate
+                }
+
+                $scope.comments = "@Model.Comments";
+                
+
+
+
+                //Save function
+                contact.save = function () {
+
+                    //Validate data
+                    //Must do field validation and email validation
+                    //Others are only validated if they exist
+                    var validate = $scope.field_validation($scope.firstName, $scope.lastName, $scope.email);
+
+                    if (validate === false) {
+                        return "Error";
+                    }
+
+                    validate = $scope.email_validation($scope.email);
+
+                    if (validate === false) {
+                        return "Error";
+                    }
+
+
+                    if ($scope.phone) {
+                        validate = $scope.phone_validation($scope.phone);
+
+                        if (validate === false) {
+                            return "Error";
+                        }
+                    }
+
+
+                    if ($scope.dt) {
+                        validate = $scope.birthdate_validation($scope.dt);
+
+                        if (validate === false) {
+                            return "Error";
+                        }
+                    }
+
+
+
+
+                    var contact = {
+                        Id: @Model.Id,
+                        firstName: $scope.firstName,
+                        lastName: $scope.lastName,
+                        email: $scope.email,
+                        phone: $scope.phone,
+                        birthdate: $scope.dt,
+                        profile: $scope.profile,
+                        family: $scope.relationships.family,
+                        friend: $scope.relationships.friend,
+                        colleague: $scope.relationships.colleague,
+                        associate: $scope.relationships.associate,
+                        comments: $scope.comments
+                    }
+
+                    var url = "http://localhost:52699/home/editcontact";
+
+                    $http.post(url, contact).then(function (response) {
+
+                        if (response.data === "Success") {
+                            $window.location.href = "/home"
+                        }
+                        else {
+                            $(".validation").append("Please make a change or cancel to complete your request.");
+                        }
+                        
+                        console.log(response.data);
+
+                    }); 
+
+                } //End save function 
+
+
+                //Cancel function
+                contact.cancel = function () {
+                    $window.location.href = "/home";
+                }
+
+
+                //Toggle Modal function
+                contact.trigger = function () {
+                    $(".bs-example-modal-sm").modal("toggle");
+                }
+                
+
+
+                //Open datepicker function
+                $scope.open2 = function() {
+                    $scope.popup2.opened = true;
+                };
+
+
+
+                //Upload profile picture function
+                $scope.upload = function () {
+                    
+                    var profile_picture = document.getElementById("new_profile_picture").files[0];
+                    var reader = new FileReader();
+
+                    reader.onloadend = function (e) {
+                        var data = e.target.result;
+                        $scope.profile = data;
+
+                        //Display new picture as example
+                        contact.display_profile($scope.profile);
+
+                       
+                    }
+
+                    if (profile_picture) {
+                        reader.readAsDataURL(profile_picture);
+                    }
+                    
+
+                }; //End upload function
+
+
+
+                //Display Profile Picture
+                contact.display_profile = function (profile_picture) {
+
+
+                    //Get the target element and grab the base64 image string that was sent from server
+                    var element = "profile_picture";
+
+                    //Create new image object and set base64 string to it's src
+                    var image = new Image(150, 150);
+                    image.src = profile_picture;
+
+                    //Get rid of base64 string in document and
+                    //Put the newly decoded image into the document
+                    //Mark element as having loaded image with class name of "done"
+                    document.getElementById(element).innerHTML = "";
+                    document.getElementById(element).appendChild(image);
+
+
+                } //End display_profile function
+
+
+
+                //Run display profile function
+                contact.display_profile(profile_picture);
+
+
+
+                //VALIDATING FUNCTIONS
+
+                //Validate required fields
+                $scope.field_validation = function (firstname, lastname, email) {
+                    
+                    if (firstname === "" || lastname === "" || email === "") {
+                        console.log("Fields");
+
+                        $(".validation").append("Please complete all required fields.*<br />");
+                        return false;
+                    }
+                    else {
+                        console.log("Nominal");
+                        return true;
+                        
+                    }
+
+                }
+
+
+                $scope.email_validation = function (email) {
+
+
+                    var regex = new RegExp(/^([a-zA-Z0-9+.-_])+\@@+([a-zA-Z0-9]+\.)+([a-zA-Z0-9]{1,5})+$/);
+
+                    var validate = regex.test(email);
+
+                    if (validate) {
+                        console.log("Nominal");
+                        return true;
+                    }
+                    else {
+                        console.log("Email");
+                        $(".validation").append("Please enter a valid email address.");
+                        return false;
+                    }
+                }
+
+
+
+                $scope.phone_validation = function (phone) {
+
+                    var regex = new RegExp(/[(]?[2-9]{1}\d{2}[)]?[-\s]?\d{3}[-\s]?\d{4}/);
+
+                    var validate = regex.test(phone);
+
+                    if (validate) {
+                        console.log("Nominal");
+                        return true;
+                    }
+                    else {
+                        console.log("Phone");
+                        $(".validation").append("Please enter a valid phone number.");
+                        return false;
+                    }
+
+                } //End phone validator
+
+
+                $scope.birthdate_validation = function (birthdate) {
+
+                    console.log(birthdate instanceof Date);
+                }
+
+
+
+
+
+            }); //End of editapp controller
+
+
+
+
+    </script>
+
+
+</body>
+
+
+
+
+</html>

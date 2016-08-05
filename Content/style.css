@@ -1,0 +1,231 @@
+﻿html {
+    padding: 0px;
+}
+
+body {
+    padding: 0px;
+}
+
+.header {
+    border: solid;
+    border-color: #374d5c;
+    background: #374d5c;
+    color: #ffffff;
+    height: 100px;
+}
+.main {
+
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 0px;
+}
+
+
+/**************** INDEX PAGE DETAILS **************/
+.contact_button {
+    margin-bottom: 25px;
+}
+
+.contact {
+    border: solid;
+    border-width: 1px;
+    background: #4270ae;
+    color: #ffffff;
+    border-color: #000000;
+    cursor: pointer;
+
+}
+
+
+.contact_info {
+    border: solid;
+    border-width: 1px;
+    background: #98b9d5;
+    padding: 25px;
+}
+
+
+
+.profile_picture {
+    border: solid;
+}
+
+.contact_details {
+
+    text-align: center;
+}
+
+.contact_item {
+    border-bottom: solid;
+    border-width: 1px;
+    width: 300px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.relationships {
+    line-height: 10px;
+}
+
+.contact_item_comments {
+
+    width: 300px;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+.cancel {
+    margin-bottom: 10px;
+}
+
+/*********** ADD AND EDIT PAGE DETAILS *************/
+
+.picture_form {
+
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+
+}
+
+.picture_form .img_upload {
+    margin-top: 15px;
+}
+
+
+.input_details {
+
+    padding: 0px;
+    margin-bottom: 8px;
+
+}
+
+.checkbox {
+
+    text-align: left;
+    width: 100px;
+    margin: 0px;
+    margin-left: 150px;
+
+}
+
+.comments {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.action_buttons {
+
+    margin-bottom: 25px;
+
+}
+
+.action_buttons .cancel {
+    margin-bottom: 10px;
+}
+
+
+/**************FOOTER SECTION**************/
+.footer {
+
+    border-top: solid;
+    border-width: 10px;
+    border-color: #2d404c;
+/*    background: #f9f9f9;*/
+    background: #374d5c;
+    color: #FFFFFF;
+/*    color: #FFFFFF;*/
+}
+
+.footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #d35fea;
+}
+
+.footer_left {
+
+    padding: 0;
+
+}
+
+
+
+.left_email, .left_linkedin, .left_github {
+
+    padding-top: 12px;
+    height: 60px;
+}
+
+
+.info {
+
+    height: 60px;
+    padding-top: 10px;
+}
+
+
+
+
+.left_email span {
+    font-size: 35px;
+}
+
+.left_linkedin i {
+    font-size: 35px;
+}
+
+.left_github i {
+    font-size: 35px;
+}
+
+
+
+.footer_right {
+
+    padding: 0px;
+    margin-top: 30px;
+}
+
+.right_map {
+
+    height: 60px;
+    padding-top: 12px;
+ 
+}
+.right_map i {
+    font-size: 35px;
+}
+
+.right_address {
+
+
+}
+
+
+
+
+.footer_title {
+
+}
+
+
+/**************BOTTOM FOOTER**************/
+
+.bottom_footer {
+    background: #2d404c;
+    color: #FFFFFF;
+    height: 100px;
+    padding: 25px;
+}
+
+/*ANGULAR BOOTSTRAP STYLE NEEDS*/
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
